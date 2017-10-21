@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Framework Course</title>
+</head>
+<body>
+
+    <h1>Album List</h1>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Artist</th>
+            <th>Producer</th>
+        </tr>
+
+        <tr th:each="album : ${albums}">
+            <td th:text="${album.id}">123</td>
+            <td th:text="${album.title}">You</td>
+            <td th:text="${album.artist.name}">123</td>
+            <td th:text="${album.producer.name}">Suck</td>
+        </tr>
+    </table>
+
+</body>
+</html>
