@@ -1,6 +1,14 @@
 package frisky51.springframework.spring5webapp.model;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,10 +17,12 @@ public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String title;
-    private String producer;
+
+    @OneToOne
+    private Producer producer;
 
     @ManyToMany
     @JoinTable(name = "artist_albums", joinColumns = @JoinColumn(name = "album_id"),
@@ -21,46 +31,50 @@ public class Album {
 
     public Album() {}
 
-    public Album(String title, String producer) {
+    public Album(String title) {
+        this.title = title;
+    }
+
+    public Album(String title, Producer producer) {
        this.title = title;
        this.producer = producer;
     }
 
-    public Album(String title, String producer, Set<Artist> artists) {
+    public Album(String title, Producer producer, Set<Artist> artists) {
         this.title = title;
         this.producer = producer;
         this.artists = artists;
     }
 
-    public String get_Title() {
+    public String getTitle() {
         return title;
     }
 
-    public void set_Title(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String get_Producer() {
+    public Producer getProducer() {
         return producer;
     }
 
-    public void set_Producer(String producer) {
+    public void setProducer(Producer producer) {
         this.producer = producer;
     }
 
-    public Set<Artist> get_Artists() {
+    public Set<Artist> getArtists() {
         return artists;
     }
 
-    public void set_Artists(Set<Artist> artists) {
+    public void setArtists(Set<Artist> artists) {
         this.artists = artists;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,12 +85,12 @@ public class Album {
 
         Album album = (Album) o;
 
-        return id == album.id;
+        return id != null ? id.equals(album.id) : album.id == null;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

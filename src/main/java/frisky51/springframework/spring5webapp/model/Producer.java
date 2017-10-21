@@ -5,47 +5,34 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-public class Artist {
+public class Producer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String address;
     private String name;
 
-    @ManyToMany(mappedBy = "artists")
-    private Set<Album> albums = new HashSet<>();
+    public Producer() {}
 
-    public Artist() {}
-
-    public Artist(String name) {
+    public Producer(String name) {
         this.name = name;
     }
 
-    public Artist(String name, Set<Album> albums) {
+    public Producer(String name, String address) {
         this.name = name;
-        this.albums = albums;
+        this.address = address;
     }
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTitle(String name) {
-        this.name = name;
-    }
-
-    public Set<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setArtists(Set<Album> albums) {
-        this.albums = albums;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getId() {
@@ -56,14 +43,22 @@ public class Artist {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Artist artist = (Artist) o;
+        Producer producer = (Producer) o;
 
-        return id != null ? id.equals(artist.id) : artist.id == null;
+        return id != null ? id.equals(producer.id) : producer.id == null;
     }
 
     @Override
@@ -73,10 +68,9 @@ public class Artist {
 
     @Override
     public String toString() {
-        return "Artist{" +
-                "id=" + id +
+        return "Producer{" +
+                "address='" + address + '\'' +
                 ", name='" + name + '\'' +
-                ", albums=" + albums +
                 '}';
     }
 }
