@@ -1,14 +1,6 @@
 package frisky51.springframework.spring5webapp.model;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -98,7 +90,7 @@ public class Album {
         return "Album{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", producer='" + producer + '\'' +
+                ", producer=" + producer +
                 ", artists=" + artists +
                 '}';
     }
